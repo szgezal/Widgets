@@ -1,42 +1,41 @@
 #include "graphics.hpp"
 #include "widget.hpp"
+#include "application.hpp"
 #include "spinbox.hpp"
 #include "scroll_list.hpp"
 #include <vector>
+#include <time.h>
 
 using namespace genv;
 
 
+const int width = 800, height = 600;
+
+
+class App : public Application {
+protected:
+    Spinbox* sb1;
+    Spinbox* sb2;
+    Scroll_list* sl1;
+    Scroll_list* sl2;
+
+public:
+    App(int width, int height) : Application(width, height) {
+        sb1 = new Spinbox(this, 20, 20, 200, 40, -20, 20);
+        sb2 = new Spinbox(this, 20, 100, 200, 40, -30, 30);
+        sl1 = new Scroll_list(this, 300, 100, 200, 40);
+        sl2 = new Scroll_list(this, 550, 100, 200, 40);
+    }
+};
+
+
 int main()
 {
-    gout.open(600,600);
-    gout.load_font("LiberationSans-Regular.ttf");
+    srand(time(NULL));
 
-    std::vector<Widget*> widgets;
-    Spinbox* sb1 = new Spinbox(10,10,200,40);
-    Scroll_list* sl1 = new Scroll_list(250,10,200,40);
-    Spinbox* sb2 = new Spinbox(10,60,200,40);
-    Scroll_list* sl2 = new Scroll_list(250,60,200,40);
+    App app(width, height);
 
-    widgets.push_back(sb1);
-    widgets.push_back(sl1);
-    widgets.push_back(sb2);
-    widgets.push_back(sl2);
-
-    for (size_t i = 0; i < widgets.size(); i++) {
-        widgets[i]->draw();
-    }
-    gout << refresh;
-
-    event ev;
-    while (gin >> ev && ev.keycode != key_escape) {
-        for (Widget* w: widgets)
-            if (w->selected(ev)) {
-                w->handle(ev);
-                w->draw();
-            }
-        gout << refresh;
-    }
+    app.eventloop();
 
     return 0;
 }

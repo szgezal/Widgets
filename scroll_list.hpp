@@ -6,9 +6,9 @@
 class Scroll_list : public Widget
 {
 public:
-    Scroll_list(int x, int y, int sx, int sy);
+    Scroll_list(Application*, int, int, int, int);
     void draw() override;
-    void handle(genv::event ev) override;
+    void handle(genv::event, Widget*) override;
 };
 
 #endif // SCROLL_LIST_HPP
