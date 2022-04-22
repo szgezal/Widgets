@@ -5,17 +5,26 @@
 
 class Spinbox;
 
-class Button
+class Scroll_list;
+
+class Button : public Widget
 {
 protected:
-    Spinbox* parent;
-    int x, y, size_x, size_y;
     bool down = false;
+
 public:
+    Button(Application*, int, int, int, int);
     Button(Spinbox*, int, int, int, int);
-    virtual void draw() = 0;
-    virtual void handle(genv::event ev);
-    bool in_focus(genv::event ev);
+    Button(Dropdown*, int, int, int, int);
+    virtual void draw() override = 0;
+    void handle(genv::event, Widget*) override;
+};
+
+class SimpleButton : Button {
+public:
+    SimpleButton(Application*, int, int, int, int);
+    void draw() override;
+    bool on_widget(genv::event) override;
 };
 
 class ButtonUp : public Button {
@@ -24,9 +33,10 @@ public:
     void draw() override;
 };
 
-class ButtonDown : public Button {
+class ButtonDown : public Button {  
 public:
     ButtonDown(Spinbox*, int, int, int, int);
+    ButtonDown(Dropdown*, int, int, int, int);
     void draw() override;
 };
 

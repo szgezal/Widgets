@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "graphics.hpp"
-using namespace genv;
 
 class Widget;
 
@@ -16,6 +15,7 @@ public:
     Application(int, int);
     void eventloop();
     void add_widget(Widget*);
+    virtual void write(genv::event) = 0;
 };
 
 

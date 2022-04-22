@@ -10,10 +10,12 @@ protected:
     int lowerlim, upperlim, n = rand() % (abs(upperlim - lowerlim)) - (abs(upperlim - lowerlim))/2;
     ButtonUp* btn1;
     ButtonDown* btn2;
+
 public:
     Spinbox(Application*, int, int, int, int, int, int);
     void draw() override;
     void handle(genv::event, Widget*) override;
+    int getNum();
 };
 
 #endif // SPINBOX_HPP
